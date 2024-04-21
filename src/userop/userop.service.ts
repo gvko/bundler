@@ -13,9 +13,6 @@ import { TxData } from './userop.controller';
 import { logger } from '../common/logger';
 import { racePromiseWithTimeout } from '../common/helpers';
 
-// TODO: can be set from env config
-const TX_RECEIPT_TIMEOUT_SEC = 10;
-
 @Injectable()
 export class UseropService {
   private readonly config;
@@ -30,7 +27,7 @@ export class UseropService {
     this.provider = new providers.JsonRpcProvider(this.config.rpcUrl);
     this.wallet = new Wallet(this.config.privateKey, this.provider);
     this.entryPointContract = new Contract(this.entryPointAddress, entryPointAbi, this.wallet);
-    this.txReceiptAwaitTimeoutSec = TX_RECEIPT_TIMEOUT_SEC;
+    this.txReceiptAwaitTimeoutSec = this.config.txReceiptAwaitTimeoutSec;
   }
 
   async sendUserOp(userOpData: TxData): Promise<string> {
