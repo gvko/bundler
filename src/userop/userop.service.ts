@@ -7,7 +7,7 @@ import {
   providers,
   Wallet,
 } from 'ethers';
-import { config } from '../common/config';
+import { Config, config } from '../common/config';
 import entryPointAbi from '../contracts/entry-point-abi';
 import { TxData } from './userop.controller';
 import { logger } from '../common/logger';
@@ -15,7 +15,7 @@ import { racePromiseWithTimeout } from '../common/helpers';
 
 @Injectable()
 export class UseropService {
-  private readonly config;
+  private readonly config: Config;
   private readonly provider: providers.JsonRpcProvider;
   private entryPointAddress = '0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789';
   private readonly wallet: Wallet;
@@ -23,7 +23,7 @@ export class UseropService {
   private readonly txReceiptAwaitTimeoutSec: number;
 
   constructor() {
-    this.config = config;
+    this.config = config();
     this.provider = new providers.JsonRpcProvider(this.config.rpcUrl);
     this.wallet = new Wallet(this.config.privateKey, this.provider);
     this.entryPointContract = new Contract(this.entryPointAddress, entryPointAbi, this.wallet);

@@ -9,4 +9,4 @@ export const config = () => ({
   txReceiptAwaitTimeoutSec: get('TX_RECEIPT_TIMEOUT_SEC').default(10).asInt(),
 });
 
-export type ConfigShape = ReturnType<typeof config>;
+export type Config = ReturnType<typeof config>;
