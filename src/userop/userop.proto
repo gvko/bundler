@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package userop;
+
+service UseropService {
+  rpc eth_sendUserOperation (TxData) returns (Tx) {}
+}
+
+message TxData {
+  string to = 1;
+  repeated google.protobuf.Any args = 2;
+  string gasLimit = 3;
+}
+
+message Tx {
+  string hash = 1;
+}
